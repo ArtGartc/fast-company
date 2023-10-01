@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 const TableBody = ({ data, columns }) => {
   const renderContent = (item, column) => {
     if (column == "name") {
-      console.log(_.get(item, columns[column]?.path))
       return (
         <Link to={`/users/${item._id}`}>
           {_.get(item, columns[column]?.path)}

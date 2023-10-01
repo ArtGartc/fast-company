@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
-import Qualities from "./qualities"
 import PropTypes from "prop-types"
 import { useNavigate, useParams } from "react-router-dom"
-import API from "../api"
+import Qualities from "../../ui/qualities/qualities"
+import API from "../../../api/index"
 
-const User = ({ userId }) => {
+const UserPage = ({ userId }) => {
   const [user, setUser] = useState()
   const navigate = useNavigate()
   const handleGoToAllUsers = () => {
@@ -37,6 +37,4 @@ const User = ({ userId }) => {
   } else return <h1>"loading"</h1>
 }
 
-export default User
-
-User.propTypes = {}
+export default UserPage

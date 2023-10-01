@@ -1,9 +1,7 @@
 import React from "react"
-import TableHeader from "./tableHeader"
-import TableBody from "./tableBody"
 import Bookmark from "./bookmark"
-import QualitiesList from "./qualitiesList"
-import Table from "./table"
+import Table, { TableBody, TableHeader } from "./../common/table/index"
+import Qualities from "./qualities/index"
 
 const UsersTable = ({
   arrayUsers,
@@ -18,7 +16,7 @@ const UsersTable = ({
     profession: { path: "profession.name", name: "Профессия" },
     qualities: {
       name: "Качество",
-      component: (user) => <QualitiesList qualities={user.qualities} />
+      component: (user) => <Qualities qualities={user.qualities} />
     },
     completedMeetings: { path: "completedMeetings", name: "Встретился, раз" },
     rate: { path: "rate", name: "Оценка" },

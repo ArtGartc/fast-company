@@ -34,7 +34,7 @@ GroupList.defaultProps = {
   contentProperty: "name"
 }
 GroupList.propTypes = {
-  items: PropTypes.object,
+  items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onClick: PropTypes.func
 }
 export default GroupList

@@ -2,10 +2,10 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import "bootstrap/dist/css/bootstrap.css"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import Navbar from "./app/layout/navbar"
 import Login from "./app/layout/login"
 import Users from "./app/layout/users"
 import Main from "./app/layout/main"
+import Navbar from "./app/components/ui/navbar"
 
 const router = createBrowserRouter([
   {
