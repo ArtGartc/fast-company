@@ -1,9 +1,9 @@
 import { useState } from "react"
-import TextField from "./textField"
+import TextField from "../common/textField"
 import { useEffect } from "react"
 import validator from "../../utils/validator"
 
-const LoginField = () => {
+const RegisterForm = () => {
   const [data, setData] = useState({ email: "", password: "" })
   const [errors, setErrors] = useState({})
   const config = {
@@ -50,35 +50,28 @@ const LoginField = () => {
     validate()
   }, [data])
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="offset-md-3 col-md-6 shadow p-4">
-          <h1 className="mb-4">Login</h1>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Email "
-              name="email"
-              type="text"
-              value={data.email}
-              onChange={handleChange}
-              error={errors.email}
-            />
-            <TextField
-              label="Password "
-              name="password"
-              type="password"
-              value={data.password}
-              onChange={handleChange}
-              error={errors.password}
-            />
-            <button className="btn btn-primary" disabled={!isLocked}>
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <TextField
+        label="Email "
+        name="email"
+        type="text"
+        value={data.email}
+        onChange={handleChange}
+        error={errors.email}
+      />
+      <TextField
+        label="Password "
+        name="password"
+        type="password"
+        value={data.password}
+        onChange={handleChange}
+        error={errors.password}
+      />
+      <button className="btn btn-primary" disabled={!isLocked}>
+        Submit
+      </button>
+    </form>
   )
 }
 
-export default LoginField
+export default RegisterForm
