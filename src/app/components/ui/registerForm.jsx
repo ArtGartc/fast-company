@@ -1,11 +1,23 @@
 import { useState } from "react"
-import TextField from "../common/textField"
+import TextField from "../common/form/textField"
 import { useEffect } from "react"
 import validator from "../../utils/validator"
+import API from "./../../api/index"
+import SelectField from "../common/form/selectField"
+import RadioField from "../common/form/radioField"
 
 const RegisterForm = () => {
-  const [data, setData] = useState({ email: "", password: "" })
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    profession: "",
+    sex: "male"
+  })
   const [errors, setErrors] = useState({})
+  const [professions, setProfessions] = useState()
+  useEffect(() => {
+    API.professions.fetchAll().then((data) => setProfessions(data))
+  }, [])
   const config = {
     email: {
       isRequired: {
@@ -28,6 +40,11 @@ const RegisterForm = () => {
       isLength: {
         message: "Длина пароля должна быть болше 8 символов",
         value: 8
+      }
+    },
+    profession: {
+      isRequired: {
+        message: "Обязательно выберите профессию"
       }
     }
   }
@@ -66,6 +83,24 @@ const RegisterForm = () => {
         value={data.password}
         onChange={handleChange}
         error={errors.password}
+      />
+      <SelectField
+        label="Professions"
+        onChange={handleChange}
+        name="profession"
+        data={data}
+        optionData={professions}
+        error={errors.profession}
+      />
+      <RadioField
+        onChange={handleChange}
+        value={data.sex}
+        name="sex"
+        options={[
+          { name: "Male", value: "male" },
+          { name: "Female", value: "female" },
+          { name: "Other", value: "other" }
+        ]}
       />
       <button className="btn btn-primary" disabled={!isLocked}>
         Submit
