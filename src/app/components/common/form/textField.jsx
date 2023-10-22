@@ -1,12 +1,15 @@
 import { useState } from "react"
 
-const textField = ({ label, type, name, value, onChange, error }) => {
+const TextField = ({ label, type, name, value, onChange, error }) => {
   const [showPassword, setShowPassword] = useState(false)
   const handleChangeShowPassword = () => {
     setShowPassword((prevState) => !prevState)
   }
   const getInvalid = () => {
     return "form-control " + (error ? "is-invalid" : "")
+  }
+  const handleChange = ({ target }) => {
+    onChange({ name: target.name, value: target.value })
   }
   return (
     <div className="mb-4">
@@ -20,7 +23,7 @@ const textField = ({ label, type, name, value, onChange, error }) => {
           className={" form-control " + getInvalid()}
           name={name}
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
         />
         {type === "password" && (
           <button
@@ -37,4 +40,4 @@ const textField = ({ label, type, name, value, onChange, error }) => {
   )
 }
 
-export default textField
+export default TextField

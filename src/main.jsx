@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <Login />
       },
       {
-        path: "users/:userId?",
+        path: "users/:userId?/:edit?",
         element: <Users />
       }
     ]

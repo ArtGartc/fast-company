@@ -1,23 +1,25 @@
-const SelectField = ({ label, onChange, name, data, optionData, error }) => {
+const SelectField = ({ label, onChange, name, optionData, error, value }) => {
   const getInvalid = () => {
     return "form-select " + (error ? "is-invalid" : "")
   }
+  const handleChange = ({ target }) => {
+    console.log(optionData)
+    onChange({ name: target.name, value: target.value })
+  }
   return (
     <div className="mb-4">
-      <label htmlFor="validationCustom04" className="form-label">
+      <label htmlFor={name} className="form-label">
         {label}
       </label>
       <select
         className={getInvalid()}
-        id="validationCustom04"
-        onChange={onChange}
+        id={name}
+        onChange={handleChange}
+        value={value}
         name={name}
-        defaultValue=""
         required
       >
-        <option disabled value="">
-          Choose...
-        </option>
+        <option value=" ">Choose...</option>
         {optionData &&
           Object.keys(optionData).map((key) => (
             <option value={optionData[key]._id} key={optionData[key]._id}>

@@ -5,19 +5,27 @@ import validator from "../../utils/validator"
 import API from "./../../api/index"
 import SelectField from "../common/form/selectField"
 import RadioField from "../common/form/radioField"
+import MultiFormField from "../common/form/multiFormField"
+import CheckboxField from "../common/form/checkboxField"
 
 const RegisterForm = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
     profession: "",
-    sex: "male"
+    sex: "male",
+    qualities: "",
+    license: false
   })
   const [errors, setErrors] = useState({})
   const [professions, setProfessions] = useState()
+  const [qualities, setQualities] = useState()
+
   useEffect(() => {
     API.professions.fetchAll().then((data) => setProfessions(data))
+    API.qualities.fetchAll().then((data) => setQualities(data))
   }, [])
+
   const config = {
     email: {
       isRequired: {
@@ -46,26 +54,38 @@ const RegisterForm = () => {
       isRequired: {
         message: "Обязательно выберите профессию"
       }
+    },
+    license: {
+      isRequired: {
+        message:
+          "Для использование приложения нужно согласие с пользовательским соглашением"
+      }
     }
   }
-  const handleChange = ({ target }) => {
+
+  const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }))
   }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const isValidate = validate()
     if (!isValidate) return
     console.log(data)
   }
+
   function validate() {
     const errors = validator(data, config)
     setErrors(errors)
     return Object.keys(errors).length === 0
   }
+
   const isLocked = Object.keys(errors).length === 0
+
   useEffect(() => {
     validate()
   }, [data])
+
   return (
     <form onSubmit={handleSubmit}>
       <TextField
@@ -101,7 +121,27 @@ const RegisterForm = () => {
           { name: "Female", value: "female" },
           { name: "Other", value: "other" }
         ]}
+        label="Выберите ваш пол"
       />
+      <div className="mb-4">
+        {qualities && (
+          <MultiFormField
+            options={qualities}
+            onChange={handleChange}
+            name="qualities"
+            label="Выберите ваши профессии"
+            defaultValue={data.qualities}
+          />
+        )}
+      </div>
+      <CheckboxField
+        onChange={handleChange}
+        value={data.license}
+        name="license"
+        error={errors.license}
+      >
+        Согласен с <a>пользовательским соглашением</a>
+      </CheckboxField>
       <button className="btn btn-primary" disabled={!isLocked}>
         Submit
       </button>
