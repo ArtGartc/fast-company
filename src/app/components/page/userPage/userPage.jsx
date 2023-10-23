@@ -1,11 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react"
-import PropTypes, { object } from "prop-types"
-import { useNavigate } from "react-router-dom"
-import Qualities from "../../ui/qualities/qualities"
 import API from "../../../api/index"
 import SelectField from "./../../common/form/selectField"
 import TextareaField from "../../common/form/textareaField"
-import Comment from "../../ui/comment"
 import UserData from "../../ui/userData"
 import { orderBy } from "lodash"
 import CommentList from "../../ui/commentList"
@@ -31,10 +27,7 @@ const UserPage = ({ userId }) => {
     API.users.fetchAll().then((data) => setAllUsers(data))
   }, [])
   console.log(comments)
-  // nameUsersFromComments && console.log(nameUsersFromComments)
-  //
-  // allUsers && console.log(allUsers)
-  // console.log(nameUsersFromComments)
+
   const handleSubmit = () => {
     API.comments
       .add({
@@ -49,15 +42,13 @@ const UserPage = ({ userId }) => {
     return data?.map((current) => ({ name: current.name, _id: current._id }))
   }
   const sortedComments = orderBy(comments, ["created_at"], "desc")
-  console.log(sortedComments)
-  // allUsers && console.log(getOptions(allUsers))
+
   return comments ? (
     <div className="container">
       <div className="row gutters-sm">
         <UserData userId={userId} />
         <div className="col-md-8">
           <div className="card mb-2">
-            {" "}
             <div className="card-body ">
               <h2>New comments</h2>
               <SelectField
